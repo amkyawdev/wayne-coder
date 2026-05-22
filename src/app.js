@@ -202,46 +202,62 @@
   function renderChatPage() {
     const container = document.createElement('div');
     container.innerHTML = `
-      <div class="chat-page" style="height:calc(100vh - 120px);display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
-        <div class="chat-main" style="display:flex;flex-direction:column;background:rgba(20,20,30,0.6);backdrop-filter:blur(12px);border:1px solid rgba(91,140,255,0.1);border-radius:12px;grid-column:1/3;overflow:hidden;">
-          <div class="chat-messages" id="chat-messages" style="flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:16px;">
-            <div class="welcome-message" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex:1;min-height:300px;">
-              <span style="font-size:64px;">🤖</span>
-              <h2>Welcome to Cloud AI Chat</h2>
-              <p style="color:#8892A8;">Start a conversation with your AI coding assistant</p>
+      <div class="chat-page" style="height:calc(100vh - 120px);display:flex;flex-direction:column;gap:16px;">
+        <!-- Top Bar -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(20,20,30,0.8);border-radius:12px;">
+          <select id="provider-select" style="padding:8px 12px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;font-size:14px;">
+            <option>OpenAI</option>
+            <option>Gemini</option>
+            <option>Groq</option>
+          </select>
+          <div style="display:flex;gap:8px;">
+            <button id="preview-toggle" style="padding:8px 12px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;font-size:14px;cursor:pointer;">📺 Preview</button>
+            <button id="terminal-toggle" style="padding:8px 12px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;font-size:14px;cursor:pointer;">🖥 Terminal</button>
+          </div>
+        </div>
+        
+        <!-- Chat Messages -->
+        <div class="chat-main" style="flex:1;display:flex;flex-direction:column;background:rgba(20,20,30,0.6);backdrop-filter:blur(12px);border:1px solid rgba(91,140,255,0.1);border-radius:12px;overflow:hidden;min-height:0;">
+          <div class="chat-messages" id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;">
+            <div class="welcome-message" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex:1;min-height:200px;">
+              <span style="font-size:48px;">🤖</span>
+              <h2 style="font-size:18px;margin:12px 0 8px;">Welcome to Cloud AI Chat</h2>
+              <p style="color:#8892A8;font-size:14px;">Start a conversation with your AI coding assistant</p>
             </div>
           </div>
-          <div class="chat-input-area" style="padding:16px;border-top:1px solid rgba(91,140,255,0.1);background:rgba(20,20,30,0.85);">
+          
+          <!-- Chat Input -->
+          <div class="chat-input-area" style="padding:12px;border-top:1px solid rgba(91,140,255,0.1);background:rgba(20,20,30,0.85);">
             <div style="display:flex;gap:8px;align-items:flex-end;">
-              <textarea id="chat-input" placeholder="Describe what you want to build..." rows="1" style="flex:1;padding:8px 16px;font-size:14px;color:#EAEAEA;background:#0B1020;border:1px solid rgba(91,140,255,0.2);border-radius:12px;resize:none;font-family:var(--font-body);"></textarea>
-              <button id="send-button" style="padding:8px 16px;background:linear-gradient(135deg,#5B8CFF,#4366E0);color:white;border:none;border-radius:8px;cursor:pointer;">➤</button>
-            </div>
-            <div style="display:flex;align-items:center;gap:16px;margin-top:8px;">
-              <select id="provider-select" style="padding:4px 8px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;">
-                <option>OpenAI</option>
-                <option>Gemini</option>
-                <option>Groq</option>
-              </select>
+              <textarea id="chat-input" placeholder="Describe what you want to build..." rows="1" style="flex:1;padding:12px 16px;font-size:14px;color:#EAEAEA;background:#0B1020;border:1px solid rgba(91,140,255,0.2);border-radius:12px;resize:none;font-family:var(--font-body);min-height:48px;"></textarea>
+              <button id="send-button" style="padding:12px 16px;background:linear-gradient(135deg,#5B8CFF,#4366E0);color:white;border:none;border-radius:12px;cursor:pointer;width:48px;height:48px;">➤</button>
             </div>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;background:rgba(20,20,30,0.6);backdrop-filter:blur(12px);border:1px solid rgba(91,140,255,0.1);border-radius:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid rgba(91,140,255,0.1);">
-            <h3 style="font-size:16px;">Live Preview</h3>
+        
+        <!-- Preview Dialog (Modal) -->
+        <dialog id="preview-dialog" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:600px;height:70vh;background:rgba(20,20,30,0.95);border:1px solid rgba(91,140,255,0.2);border-radius:16px;padding:0;color:#EAEAEA;font-family:var(--font-body);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(91,140,255,0.1);">
+            <h3 style="font-size:16px;margin:0;">📺 Live Preview</h3>
+            <button id="close-preview" style="padding:4px 8px;background:transparent;border:none;color:#EAEAEA;font-size:18px;cursor:pointer;">✕</button>
           </div>
-          <div style="flex:1;min-height:200px;background:#0B1020;border-radius:8px;margin:16px;overflow:hidden;">
+          <div style="flex:1;background:#0B1020;border-radius:0 0 16px 16px;overflow:hidden;">
             <iframe id="preview-frame" style="width:100%;height:100%;border:none;" sandbox="allow-scripts"></iframe>
           </div>
-        </div>
-        <div style="display:flex;flex-direction:column;background:rgba(20,20,30,0.6);backdrop-filter:blur(12px);border:1px solid rgba(91,140,255,0.1);border-radius:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid rgba(91,140,255,0.1);">
-            <h3 style="font-size:16px;">Terminal</h3>
+        </dialog>
+        
+        <!-- Terminal Dialog (Modal) -->
+        <dialog id="terminal-dialog" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:600px;height:400px;background:rgba(20,20,30,0.95);border:1px solid rgba(91,140,255,0.2);border-radius:16px;padding:0;color:#EAEAEA;font-family:var(--font-body);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(91,140,255,0.1);">
+            <h3 style="font-size:16px;margin:0;">🖥 Terminal</h3>
+            <button id="close-terminal" style="padding:4px 8px;background:transparent;border:none;color:#EAEAEA;font-size:18px;cursor:pointer;">✕</button>
           </div>
-          <div id="terminal-container" style="flex:1;padding:16px;font-family:var(--font-code);font-size:14px;color:#00F5FF;">
-            <div style="margin-bottom:4px;"><span style="color:#10B981;">$</span> cloudai --version</div>
-            <div style="color:#8892A8;padding-left:16px;">Cloud AI v1.0.0</div>
+          <div id="terminal-container" style="flex:1;padding:16px;font-family:var(--font-code);font-size:14px;color:#00F5FF;overflow-y:auto;">
+            <div style="margin-bottom:8px;"><span style="color:#10B981;">$</span> cloudai --version</div>
+            <div style="color:#8892A8;padding-left:16px;margin-bottom:16px;">Cloud AI v1.0.0</div>
+            <div style="margin-bottom:8px;"><span style="color:#10B981;">$</span> <span contenteditable="true" style="outline:none;border-bottom:1px solid #00F5FF;min-width:100px;">_</span></div>
           </div>
-        </div>
+        </dialog>
       </div>
     `;
     
@@ -249,11 +265,32 @@
     setTimeout(() => {
       const input = document.getElementById('chat-input');
       const sendBtn = document.getElementById('send-button');
+      const previewDialog = document.getElementById('preview-dialog');
+      const terminalDialog = document.getElementById('terminal-dialog');
+      const previewToggle = document.getElementById('preview-toggle');
+      const terminalToggle = document.getElementById('terminal-toggle');
+      const closePreview = document.getElementById('close-preview');
+      const closeTerminal = document.getElementById('close-terminal');
       
-      if (input && sendBtn) {
+      // Dialog toggles
+      if(previewToggle && previewDialog) {
+        previewToggle.addEventListener('click', () => previewDialog.showModal());
+      }
+      if(terminalToggle && terminalDialog) {
+        terminalToggle.addEventListener('click', () => terminalDialog.showModal());
+      }
+      if(closePreview) {
+        closePreview.addEventListener('click', () => previewDialog.close());
+      }
+      if(closeTerminal) {
+        closeTerminal.addEventListener('click', () => terminalDialog.close());
+      }
+      
+      // Input auto-resize
+      if (input) {
         input.addEventListener('input', () => {
           input.style.height = 'auto';
-          input.style.height = Math.min(input.scrollHeight, 200) + 'px';
+          input.style.height = Math.min(Math.max(input.scrollHeight, 48), 150) + 'px';
         });
         
         const sendMessage = () => {

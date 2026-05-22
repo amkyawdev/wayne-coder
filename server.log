@@ -23,3 +23,9 @@
 127.0.0.1 - - [22/May/2026 05:05:52] "GET /src/styles/main.css HTTP/1.1" 304 -
 127.0.0.1 - - [22/May/2026 05:05:52] "GET /src/styles/components.css HTTP/1.1" 304 -
 127.0.0.1 - - [22/May/2026 05:05:52] "GET /src/app.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:13:13] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:13:13] "GET /src/styles/variables.css HTTP/1.1" 304 -
+127.0.0.1 - - [22/May/2026 05:13:13] "GET /src/styles/animations.css HTTP/1.1" 304 -
+127.0.0.1 - - [22/May/2026 05:13:13] "GET /src/styles/main.css HTTP/1.1" 304 -
+127.0.0.1 - - [22/May/2026 05:13:13] "GET /src/styles/components.css HTTP/1.1" 304 -
+127.0.0.1 - - [22/May/2026 05:13:13] "GET /src/app.js HTTP/1.1" 200 -

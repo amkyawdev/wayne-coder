@@ -22,115 +22,8 @@
   <link rel="stylesheet" href="./src/styles/main.css">
   <link rel="stylesheet" href="./src/styles/components.css">
 <style>
-    /* Quick fix for missing styles */
-    body {
-      font-family: var(--font-body);
-      margin: 0;
-      padding: 0;
-      background: #0B1020;
-      color: #EAEAEA;
-    }
-    
-    .app-container {
-      display: flex;
-      min-height: 100vh;
-    }
-    
-    .canvas-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: #0B1020;
-    }
-    
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 58px;
-      height: 100vh;
-      background: rgba(20, 20, 30, 0.85);
-      backdrop-filter: blur(12px);
-      border-right: 1px solid rgba(91, 140, 255, 0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 16px 0;
-      z-index: 100;
-    }
-    
-    .sidebar-logo {
-      margin-bottom: 24px;
-    }
-    
-    .logo-icon {
-      font-size: 32px;
-    }
-    
-    .sidebar-nav {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    
-    .sidebar-item {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .sidebar-item:hover {
-      background: rgba(20, 20, 30, 0.8);
-    }
-    
-    .sidebar-item.active {
-      background: rgba(0, 245, 255, 0.1);
-    }
-    
-    .sidebar-item.active .sidebar-link {
-      color: #00F5FF;
-    }
-    
-    .sidebar-link {
-      background: none;
-      border: none;
-      color: #8892A8;
-      cursor: pointer;
-      padding: 8px;
-    }
-    
-    .sidebar-link svg {
-      width: 22px;
-      height: 22px;
-    }
-    
-    .sidebar-version {
-      font-size: 10px;
-      color: #4A5568;
-      margin-top: auto;
-    }
-    
-    .main-content {
-      flex: 1;
-      margin-left: 58px;
-      min-height: 100vh;
-    }
-    
-    .page-container {
-      padding: 24px;
-      padding-top: calc(60px + 24px);
-    }
+    /* Mobile-first styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     
     :root {
       --bg-primary: #0B1020;
@@ -152,20 +45,161 @@
       --font-body: 'Inter', 'Segoe UI', sans-serif;
       --font-display: 'Orbitron', sans-serif;
       --font-code: 'JetBrains Mono', monospace;
-      --sidebar-width: 58px;
-      --header-height: 60px;
       --space-xs: 4px;
       --space-sm: 8px;
       --space-md: 16px;
       --space-lg: 24px;
       --space-xl: 32px;
-      --space-2xl: 48px;
-      --radius-sm: 4px;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      --radius-full: 9999px;
-      --transition-fast: 150ms ease;
-      --transition-normal: 250ms ease;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+    
+    html, body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    body { font-size: 14px; line-height: 1.5; }
+    
+    .app-container {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+    }
+    
+    .canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    /* Mobile sidebar */
+    .sidebar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 56px;
+      background: var(--panel-glass);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 var(--space-sm);
+      z-index: 100;
+    }
+    
+    .sidebar-logo, .sidebar-version { display: none; }
+    
+    .sidebar-nav {
+      display: flex;
+      list-style: none;
+      gap: var(--space-xs);
+      width: 100%;
+      justify-content: space-around;
+    }
+    
+    .sidebar-item {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .sidebar-item:hover { background: rgba(20, 20, 30, 0.8); }
+    
+    .sidebar-item.active {
+      background: rgba(0, 245, 255, 0.15);
+    }
+    
+    .sidebar-item.active .sidebar-link { color: var(--neon-cyan); }
+    
+    .sidebar-link {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: var(--space-sm);
+    }
+    
+    .sidebar-link svg { width: 22px; height: 22px; }
+    
+    .main-content {
+      flex: 1;
+      margin-left: 0;
+      margin-bottom: 56px;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+    
+    .page-container {
+      padding: var(--space-md);
+      min-height: calc(100vh - 56px);
+    }
+    
+    /* Dialog styles */
+    dialog {
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      background: var(--panel-elevated);
+      color: var(--text-primary);
+    }
+    
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    
+    /* Responsive tablet+ */
+    @media (min-width: 768px) {
+      .sidebar {
+        top: 0;
+        left: 0;
+        width: 58px;
+        height: 100vh;
+        flex-direction: column;
+        border-right: 1px solid var(--border-subtle);
+        border-top: none;
+        padding: var(--space-md) 0;
+      }
+      
+      .sidebar-logo {
+        display: flex;
+        margin-bottom: var(--space-lg);
+      }
+      
+      .sidebar-nav {
+        flex-direction: column;
+        width: auto;
+      }
+      
+      .sidebar-version {
+        display: block;
+        margin-top: auto;
+        font-size: 10px;
+        color: var(--text-muted);
+      }
+      
+      .main-content {
+        margin-left: 58px;
+        margin-bottom: 0;
+        height: 100vh;
+      }
+      
+      .page-container {
+        padding: var(--space-lg);
+      }
     }
   </style>
 </head>
