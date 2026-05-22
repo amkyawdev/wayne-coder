@@ -202,66 +202,68 @@
   function renderChatPage() {
     const container = document.createElement('div');
     container.innerHTML = `
-      <div class="chat-page" style="height:calc(100vh - 120px);display:flex;flex-direction:column;gap:16px;">
+      <div class="chat-page" style="height:calc(100vh - 56px - 32px);display:flex;flex-direction:column;gap:12px;">
         <!-- Top Bar -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(20,20,30,0.8);border-radius:12px;">
-          <select id="provider-select" style="padding:8px 12px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;font-size:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(20,20,30,0.8);border-radius:12px;flex-shrink:0;">
+          <select id="provider-select" style="padding:6px 10px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;font-size:13px;">
             <option>OpenAI</option>
             <option>Gemini</option>
             <option>Groq</option>
           </select>
-          <div style="display:flex;gap:8px;">
-            <button id="preview-toggle" style="padding:8px 12px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;font-size:14px;cursor:pointer;">📺 Preview</button>
-            <button id="terminal-toggle" style="padding:8px 12px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;font-size:14px;cursor:pointer;">🖥 Terminal</button>
+          <div style="display:flex;gap:6px;">
+            <button id="preview-toggle" style="padding:6px 12px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;font-size:13px;cursor:pointer;">📺 Preview</button>
+            <button id="terminal-toggle" style="padding:6px 12px;background:rgba(10,15,25,0.8);color:#EAEAEA;border:1px solid rgba(91,140,255,0.2);border-radius:8px;font-size:13px;cursor:pointer;">🖥 Terminal</button>
           </div>
         </div>
         
-        <!-- Chat Messages -->
+        <!-- Chat Messages - Full Screen -->
         <div class="chat-main" style="flex:1;display:flex;flex-direction:column;background:rgba(20,20,30,0.6);backdrop-filter:blur(12px);border:1px solid rgba(91,140,255,0.1);border-radius:12px;overflow:hidden;min-height:0;">
           <div class="chat-messages" id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;">
-            <div class="welcome-message" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex:1;min-height:200px;">
-              <span style="font-size:48px;">🤖</span>
-              <h2 style="font-size:18px;margin:12px 0 8px;">Welcome to Cloud AI Chat</h2>
-              <p style="color:#8892A8;font-size:14px;">Start a conversation with your AI coding assistant</p>
+            <div class="welcome-message" style="display:flex;flex-direction:row;align-items:center;justify-content:center;flex:1;gap:16px;min-height:200px;">
+              <span style="font-size:40px;">🤖</span>
+              <div style="text-align:left;">
+                <h2 style="font-size:16px;margin:0 0 6px;">Welcome to Cloud AI</h2>
+                <p style="color:#8892A8;font-size:13px;margin:0;">Describe what you want to build</p>
+              </div>
             </div>
           </div>
           
           <!-- Chat Input -->
-          <div class="chat-input-area" style="padding:12px;border-top:1px solid rgba(91,140,255,0.1);background:rgba(20,20,30,0.85);">
+          <div class="chat-input-area" style="padding:12px;border-top:1px solid rgba(91,140,255,0.1);background:rgba(20,20,30,0.85);flex-shrink:0;">
             <div style="display:flex;gap:8px;align-items:flex-end;">
-              <textarea id="chat-input" placeholder="Describe what you want to build..." rows="1" style="flex:1;padding:12px 16px;font-size:14px;color:#EAEAEA;background:#0B1020;border:1px solid rgba(91,140,255,0.2);border-radius:12px;resize:none;font-family:var(--font-body);min-height:48px;"></textarea>
-              <button id="send-button" style="padding:12px 16px;background:linear-gradient(135deg,#5B8CFF,#4366E0);color:white;border:none;border-radius:12px;cursor:pointer;width:48px;height:48px;">➤</button>
+              <textarea id="chat-input" placeholder="Message..." rows="1" style="flex:1;padding:12px 14px;font-size:14px;color:#EAEAEA;background:#0B1020;border:1px solid rgba(91,140,255,0.2);border-radius:12px;resize:none;font-family:var(--font-body);min-height:48px;max-height:120px;"></textarea>
+              <button id="send-button" style="padding:12px 14px;background:linear-gradient(135deg,#5B8CFF,#4366E0);color:white;border:none;border-radius:12px;cursor:pointer;width:48px;height:48px;flex-shrink:0;">➤</button>
             </div>
           </div>
         </div>
         
-        <!-- Preview Dialog (Modal) -->
-        <dialog id="preview-dialog" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:600px;height:70vh;background:rgba(20,20,30,0.95);border:1px solid rgba(91,140,255,0.2);border-radius:16px;padding:0;color:#EAEAEA;font-family:var(--font-body);">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(91,140,255,0.1);">
-            <h3 style="font-size:16px;margin:0;">📺 Live Preview</h3>
+        <!-- Preview Dialog -->
+        <dialog id="preview-dialog" style="position:fixed;inset:16px;width:auto;max-width:100%;height:auto;max-height:80vh;background:rgba(20,20,30,0.98);border:1px solid rgba(91,140,255,0.3);border-radius:16px;padding:0;color:#EAEAEA;font-family:var(--font-body);margin:auto;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(91,140,255,0.15);">
+            <h3 style="font-size:15px;margin:0;">📺 Live Preview</h3>
             <button id="close-preview" style="padding:4px 8px;background:transparent;border:none;color:#EAEAEA;font-size:18px;cursor:pointer;">✕</button>
           </div>
-          <div style="flex:1;background:#0B1020;border-radius:0 0 16px 16px;overflow:hidden;">
-            <iframe id="preview-frame" style="width:100%;height:100%;border:none;" sandbox="allow-scripts"></iframe>
+          <div style="flex:1;background:#0B1020;border-radius:0 0 15px 15px;min-height:300px;">
+            <iframe id="preview-frame" style="width:100%;height:100%;min-height:300px;border:none;" sandbox="allow-scripts"></iframe>
           </div>
         </dialog>
         
-        <!-- Terminal Dialog (Modal) -->
-        <dialog id="terminal-dialog" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:600px;height:400px;background:rgba(20,20,30,0.95);border:1px solid rgba(91,140,255,0.2);border-radius:16px;padding:0;color:#EAEAEA;font-family:var(--font-body);">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(91,140,255,0.1);">
-            <h3 style="font-size:16px;margin:0;">🖥 Terminal</h3>
+        <!-- Terminal Dialog -->
+        <dialog id="terminal-dialog" style="position:fixed;inset:16px;width:auto;max-width:500px;height:auto;max-height:60vh;background:rgba(20,20,30,0.98);border:1px solid rgba(91,140,255,0.3);border-radius:16px;padding:0;color:#EAEAEA;font-family:var(--font-body);margin:auto;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(91,140,255,0.15);">
+            <h3 style="font-size:15px;margin:0;">🖥 Terminal</h3>
             <button id="close-terminal" style="padding:4px 8px;background:transparent;border:none;color:#EAEAEA;font-size:18px;cursor:pointer;">✕</button>
           </div>
-          <div id="terminal-container" style="flex:1;padding:16px;font-family:var(--font-code);font-size:14px;color:#00F5FF;overflow-y:auto;">
+          <div id="terminal-container" style="flex:1;padding:16px;font-family:var(--font-code);font-size:13px;color:#00F5FF;overflow-y:auto;min-height:200px;">
             <div style="margin-bottom:8px;"><span style="color:#10B981;">$</span> cloudai --version</div>
             <div style="color:#8892A8;padding-left:16px;margin-bottom:16px;">Cloud AI v1.0.0</div>
-            <div style="margin-bottom:8px;"><span style="color:#10B981;">$</span> <span contenteditable="true" style="outline:none;border-bottom:1px solid #00F5FF;min-width:100px;">_</span></div>
+            <div style="margin-bottom:8px;"><span style="color:#10B981;">$</span> <span style="border-bottom:1px solid #00F5FF;min-width:80px;padding-left:4px;">_</span></div>
           </div>
         </dialog>
       </div>
     `;
     
-    // Bind chat events
+    // Bind events
     setTimeout(() => {
       const input = document.getElementById('chat-input');
       const sendBtn = document.getElementById('send-button');
@@ -272,25 +274,15 @@
       const closePreview = document.getElementById('close-preview');
       const closeTerminal = document.getElementById('close-terminal');
       
-      // Dialog toggles
-      if(previewToggle && previewDialog) {
-        previewToggle.addEventListener('click', () => previewDialog.showModal());
-      }
-      if(terminalToggle && terminalDialog) {
-        terminalToggle.addEventListener('click', () => terminalDialog.showModal());
-      }
-      if(closePreview) {
-        closePreview.addEventListener('click', () => previewDialog.close());
-      }
-      if(closeTerminal) {
-        closeTerminal.addEventListener('click', () => terminalDialog.close());
-      }
+      if(previewToggle && previewDialog) previewToggle.addEventListener('click', () => previewDialog.showModal());
+      if(terminalToggle && terminalDialog) terminalToggle.addEventListener('click', () => terminalDialog.showModal());
+      if(closePreview) closePreview.addEventListener('click', () => previewDialog.close());
+      if(closeTerminal) closeTerminal.addEventListener('click', () => terminalDialog.close());
       
-      // Input auto-resize
-      if (input) {
+      if (input && sendBtn) {
         input.addEventListener('input', () => {
           input.style.height = 'auto';
-          input.style.height = Math.min(Math.max(input.scrollHeight, 48), 150) + 'px';
+          input.style.height = Math.min(Math.max(input.scrollHeight, 44), 100) + 'px';
         });
         
         const sendMessage = () => {
@@ -305,10 +297,7 @@
         
         sendBtn.addEventListener('click', sendMessage);
         input.addEventListener('keydown', (e) => {
-          if(e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-          }
+          if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
         });
       }
     }, 100);
