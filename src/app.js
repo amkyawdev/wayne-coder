@@ -72,12 +72,15 @@
     const canvas = document.createElement('canvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;';
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:#DC143C;';
     canvasContainer.appendChild(canvas);
     
     const ctx = canvas.getContext('2d');
     const particles = [];
-    const particleCount = 100;
+    const particleCount = 80;
+    
+    // Crimson/Red themed colors
+    const colors = ['#FF6B6B', '#FFD93D', '#FF8C00', '#FFD700'];
     
     // Create particles
     for(let i = 0; i < particleCount; i++) {
@@ -87,7 +90,7 @@
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 2 + 1,
-        color: ['#00F5FF', '#5B8CFF', '#8B5CF6'][Math.floor(Math.random() * 3)]
+        color: colors[Math.floor(Math.random() * colors.length)]
       });
     }
     
