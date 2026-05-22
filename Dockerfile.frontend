@@ -1,0 +1,12 @@
+FROM node:20-alpine
+
+WORKDIR /workspace/project/wayne-coder
+
+# Copy frontend files
+COPY . .
+
+# Expose port
+EXPOSE 5173
+
+# Development server (run via npm vite)
+CMD ["npx", "vite", "--host"]

@@ -1,0 +1,105 @@
+/**
+ * Cloud AI - CSS Variables
+ * Design system tokens and theme configuration
+ */
+
+:root {
+  /* ===_colors:background === */
+  --bg-primary: #0B1020;
+  --bg-secondary: #0D1225;
+  --bg-tertiary: #111A30;
+  
+  /* === Colors:panel === */
+  --panel-bg: rgba(20, 20, 30, 0.6);
+  --panel-elevated: rgba(30, 30, 45, 0.8);
+  --panel-glass: rgba(20, 20, 30, 0.85);
+  
+  /* === Colors:accent === */
+  --accent-primary: #5B8CFF;
+  --accent-secondary: #4366E0;
+  --accent-tertiary: #2D4AA8;
+  
+  /* === Colors:neon === */
+  --neon-cyan: #00F5FF;
+  --neon-pink: #FF00FF;
+  --neon-purple: #8B5CF6;
+  --neon-green: #10B981;
+  
+  /* === Colors:text === */
+  --text-primary: #EAEAEA;
+  --text-secondary: #8892A8;
+  --text-muted: #4A5568;
+  --text-inverse: #0B1020;
+  
+  /* === Colors:status === */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #3B82F6;
+  
+  /* === Colors:border === */
+  --border-subtle: rgba(91, 140, 255, 0.1);
+  --border-default: rgba(91, 140, 255, 0.2);
+  --border-strong: rgba(91, 140, 255, 0.3);
+  
+  /* === Typography:fonts === */
+  --font-display: 'Orbitron', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* === Typography:sizes === */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  
+  /* === Spacing === */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  
+  /* === Border-radius === */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  /* === Shadows === */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(0, 245, 255, 0.3);
+  --shadow-glow-accent: 0 0 20px rgba(91, 140, 255, 0.3);
+  
+  /* === Transitions === */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+  --transition-spring: 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* === Layout === */
+  --sidebar-width: 58px;
+  --header-height: 60px;
+  --menu-button-size: 40px;
+}
+
+/* Dark theme (default) */
+[data-theme="dark"] {
+  --bg-primary: #0B1020;
+  --text-primary: #EAEAEA;
+}
+
+/* Light theme (optional) */
+[data-theme="light"] {
+  --bg-primary: #F5F7FA;
+  --bg-secondary: #FFFFFF;
+  --text-primary: #1A202C;
+  --text-secondary: #4A5568;
+}

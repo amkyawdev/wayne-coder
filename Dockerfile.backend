@@ -1,0 +1,21 @@
+FROM python:3.11-slim
+
+WORKDIR /workspace/project/wayne-coder
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy backend files
+COPY backend/ ./backend/
+COPY package.json ./
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r backend/requirements.txt
+
+# Expose port
+EXPOSE 8000
+
+# Run the backend server
+CMD ["python", "-m", "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]

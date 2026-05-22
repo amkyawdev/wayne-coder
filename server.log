@@ -1,0 +1,25 @@
+127.0.0.1 - - [22/May/2026 05:01:24] "HEAD / HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/styles/variables.css HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/styles/animations.css HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/styles/main.css HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/styles/components.css HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/app.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/components/sidebar.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/pages/user-api.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/pages/chat.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/pages/get-started.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/three/scene-manager.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/pages/recent.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/pages/about.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/components/toast.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /src/three/particle-manager.js HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:01:32] code 404, message File not found
+127.0.0.1 - - [22/May/2026 05:01:32] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [22/May/2026 05:02:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:05:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/May/2026 05:05:52] "GET /src/styles/animations.css HTTP/1.1" 304 -
+127.0.0.1 - - [22/May/2026 05:05:52] "GET /src/styles/variables.css HTTP/1.1" 304 -
+127.0.0.1 - - [22/May/2026 05:05:52] "GET /src/styles/main.css HTTP/1.1" 304 -
+127.0.0.1 - - [22/May/2026 05:05:52] "GET /src/styles/components.css HTTP/1.1" 304 -
+127.0.0.1 - - [22/May/2026 05:05:52] "GET /src/app.js HTTP/1.1" 200 -
